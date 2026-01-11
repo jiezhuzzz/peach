@@ -1,4 +1,10 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
+  env.UV_PYTHON_DOWNLOADS = lib.mkForce "auto";
+  env.UV_PYTHON_PREFERENCE = lib.mkForce "managed";
   languages = {
     python = {
       enable = true;
@@ -26,8 +32,6 @@
       shellcheck.enable = true;
       # Markdown
       mdformat.enable = true;
-      # TOML
-      taplo.enable = true;
       # YAML
       yamlfmt.enable = true;
       # JSON
@@ -37,6 +41,14 @@
       # Spelling
       typos.enable = true;
       autocorrect.enable = true;
+    };
+    config.settings.formatter = {
+      # TOML
+      tombi = {
+        command = "${pkgs.tombi}/bin/tombi";
+        includes = ["*.toml"];
+        options = ["format"];
+      };
     };
   };
 
