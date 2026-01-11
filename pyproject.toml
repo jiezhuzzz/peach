@@ -1,5 +1,5 @@
 [project]
-name = "peach"
+name = "peaty"
 version = "0.1.0"
 description = "A Python library for smart path type hint."
 readme = "README.md"
