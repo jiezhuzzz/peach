@@ -48,7 +48,7 @@ def _path_exists(p: Path) -> Path:
 
 
 # Dirs
-type Dir = DirectoryPath
+Dir = DirectoryPath
 type NewDir = NewPath
 type GitDir = Annotated[DirectoryPath, AfterValidator(_dir_contains(".git"))]
 
