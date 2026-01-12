@@ -41,14 +41,25 @@ def _bin_file(p: Path) -> Path:
     return p
 
 
-type GitDir = Annotated[DirectoryPath, AfterValidator(_dir_contains(".git"))]
+def _path_exists(p: Path) -> Path:
+    if not p.exists():
+        raise ValueError(f"Path {p} does not exist")
+    return p
+
+
+# Dirs
 type Dir = DirectoryPath
 type NewDir = NewPath
+type GitDir = Annotated[DirectoryPath, AfterValidator(_dir_contains(".git"))]
+
+# Files
+type File = FilePath
 type NewFile = NewPath
 type BinFile = Annotated[FilePath, AfterValidator(_bin_file)]
 type NewBinFile = NewPath
 
 
+# Dynamically generated file types
 def __getattr__(name: str):
     m = _FILE_TYPE_PATTERN.match(name)
     if not m:
