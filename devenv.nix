@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: {
   env.UV_PYTHON_DOWNLOADS = lib.mkForce "auto";
@@ -14,6 +15,9 @@
       };
     };
   };
+  enterShell = ''
+    ln -sfn ${config.env.DEVENV_STATE}/venv .venv
+  '';
 
   treefmt = {
     enable = true;
